@@ -40,6 +40,12 @@ class Customer(models.Model):
         choices=MEMBER_CHOICES,
         default=MEMBERSHIP_BRONZE
     )
+    class Meta:
+        db_table = 'store_customer'
+        indexes = [
+            models.Index(fields=['first_name', 'last_name']),
+
+        ]
 
 
 class Order(models.Model):
@@ -70,6 +76,7 @@ class OrderItem(models.Model):
 class Address (models.Model):
     street_address = models.CharField(max_length=250)
     city = models.CharField(max_length=150)
+    zip = models.CharField(max_length=20)
     customer = models.ForeignKey(Customer, on_delete=models.PROTECT,primary_key=True)
 
 class Cart(models.Model):
